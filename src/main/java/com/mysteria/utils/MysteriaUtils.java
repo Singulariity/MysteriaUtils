@@ -156,10 +156,6 @@ public class MysteriaUtils {
 		return getRandom(0, 100) < percentage;
 	}
 
-	public static boolean chance(double percentage) {
-		return getRandom(0D, 100D) < percentage;
-	}
-
 	/**
 	 * Gets a random double between two values.
 	 *
