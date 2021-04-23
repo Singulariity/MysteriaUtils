@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("unused")
 public class MysteriaUtils {
@@ -140,6 +141,31 @@ public class MysteriaUtils {
 	 */
 	public static boolean checkCooldown(long cooldown) {
 		return System.currentTimeMillis() >= cooldown;
+	}
+
+	/**
+	 *
+	 * @param cooldown cooldown finish long
+	 * @return the string
+	 */
+	@Nonnull
+	public static String cooldownString(long cooldown) {
+		long now = System.currentTimeMillis();
+
+		if (now < cooldown) {
+			String finalString = "";
+			long seconds = TimeUnit.MILLISECONDS.toSeconds(cooldown - now);
+			int day = (int) TimeUnit.SECONDS.toDays(seconds);
+			long hour = TimeUnit.SECONDS.toHours(seconds) - (day * 24L);
+			long minute = TimeUnit.SECONDS.toMinutes(seconds) - (TimeUnit.SECONDS.toHours(seconds) * 60);
+			long second = TimeUnit.SECONDS.toSeconds(seconds) - (TimeUnit.SECONDS.toMinutes(seconds) * 60);
+			if (day > 0) finalString += day + " day(s), ";
+			if (hour > 0) finalString += hour + " hour(s), ";
+			if (minute > 0) finalString += minute + " minute(s) and ";
+			finalString += second + " second(s)";
+			return finalString;
+		}
+		return "???";
 	}
 
 	public static Component centeredComponent(@Nonnull Component message) {
