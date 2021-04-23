@@ -1,8 +1,9 @@
 package com.mysteria.utils;
 
+import com.mysteria.customapi.itemmanager.containers.ItemTagContainer;
+import com.mysteria.customapi.itemtags.ItemTag;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.md_5.bungee.api.chat.ItemTag;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -83,12 +84,9 @@ public class ItemBuilder {
 	}
 
 	public ItemBuilder addTags(@Nonnull ItemTag... tags) {
-		// TODO
-		/*
-		ItemTagContainer itemTagContainer = ItemInfo.get(itemStack).getItemTagContainer();
+		ItemTagContainer itemTagContainer = ItemTagContainer.get(itemStack);
 		itemTagContainer.addTags(tags);
 		itemMeta = itemTagContainer.getUpdatedItemMeta();
-		*/
 		return this;
 	}
 

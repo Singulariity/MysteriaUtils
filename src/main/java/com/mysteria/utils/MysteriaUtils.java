@@ -1,9 +1,12 @@
 package com.mysteria.utils;
 
+import com.mysteria.customapi.CustomAPIPlugin;
+import com.mysteria.customapi.itemmanager.ItemInfo;
 import com.mysteria.utils.enums.DefaultFontInfo;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -95,28 +98,24 @@ public class MysteriaUtils {
 
 	@Nonnull
 	public static Component showItemComponent(@Nonnull ItemStack itemStack) {
-		return Component.text("");
-
-		// TODO
-		/*
 		ItemStack item = itemStack.clone();
-		CustomItemsPlugin.getInstance().getItemManager().setItemPacketMeta(item);
+
+		CustomAPIPlugin.getItemManager().setItemPacketMeta(item);
 		Component displayName;
 		if (item.getItemMeta().displayName() == null && item.getI18NDisplayName() != null) {
-			displayName = nonItalic(Component.text(item.getI18NDisplayName()));
+			displayName = Component.text(item.getI18NDisplayName());
 		} else {
 			displayName = item.getItemMeta().displayName();
 			if (displayName == null) {
-				displayName = nonItalic(Component.text("Item"));
+				displayName = Component.text("Item");
 			}
 		}
 
 		return Component.text("[")
-				.append(displayName)
+				.append(displayName.decoration(TextDecoration.ITALIC, false))
 				.append(Component.text("]"))
 				.hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_ITEM, item.asHoverEvent().value()))
 				.color(ItemInfo.get(item).getRarity().getColor());
-		 */
 
 	}
 
