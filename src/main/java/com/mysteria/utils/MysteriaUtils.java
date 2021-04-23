@@ -124,6 +124,24 @@ public class MysteriaUtils {
 		return org.bukkit.Color.fromRGB(textColor.red(), textColor.green(), textColor.blue());
 	}
 
+	/**
+	 *
+	 * @param seconds cooldown timer
+	 * @return cooldown finish long
+	 */
+	public static long createCooldown(int seconds) {
+		return System.currentTimeMillis() + (1000L * seconds);
+	}
+
+	/**
+	 *
+	 * @param cooldown cooldown finish long
+	 * @return true if cooldown finished
+	 */
+	public static boolean checkCooldown(long cooldown) {
+		return System.currentTimeMillis() >= cooldown;
+	}
+
 	public static Component centeredComponent(@Nonnull Component message) {
 
 		String plainText = PlainComponentSerializer.plain().serialize(message);
