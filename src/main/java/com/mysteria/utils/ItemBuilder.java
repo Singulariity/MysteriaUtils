@@ -23,8 +23,7 @@ public class ItemBuilder {
 	private ItemMeta itemMeta;
 
 	private ItemBuilder(@Nonnull Material material) {
-		this.itemStack = new ItemStack(material);
-		this.itemMeta = itemStack.getItemMeta();
+		this(new ItemStack(material));
 	}
 
 	private ItemBuilder(@Nonnull ItemStack itemStack) {
