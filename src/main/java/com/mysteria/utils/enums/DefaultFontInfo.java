@@ -1,9 +1,8 @@
 package com.mysteria.utils.enums;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Map;
 
+@SuppressWarnings("NonAsciiCharacters")
 public enum DefaultFontInfo {
 
 	A('A', 5),
@@ -114,17 +113,8 @@ public enum DefaultFontInfo {
 	SPACE(' ', 3),
 	DEFAULT('a', 4);
 
-	private static final Map<Character, DefaultFontInfo> byChar = new HashMap<>();
 	private final char character;
 	private final int length;
-
-	static {
-		for (DefaultFontInfo fontInfo : DefaultFontInfo.values()) {
-			if (byChar.put(fontInfo.getCharacter(), fontInfo) != null) {
-				throw new IllegalArgumentException("Duplicate Character: " + fontInfo.getCharacter());
-			}
-		}
-	}
 
 	DefaultFontInfo(char character, int length) {
 		this.character = character;
@@ -146,7 +136,10 @@ public enum DefaultFontInfo {
 
 	@Nonnull
 	public static DefaultFontInfo getDefaultFontInfo(char c) {
-		return byChar.getOrDefault(c, DefaultFontInfo.DEFAULT);
+		for (DefaultFontInfo dFI : DefaultFontInfo.values()) {
+			if (dFI.getCharacter() == c) return dFI;
+		}
+		return DefaultFontInfo.DEFAULT;
 	}
 
 }
