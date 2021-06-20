@@ -10,7 +10,7 @@ import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
@@ -85,7 +85,7 @@ public class MysteriaUtils {
 
 	@Nonnull
 	public static String translateToString(@Nonnull Component component) {
-		return PlainComponentSerializer.plain().serialize(component);
+		return PlainTextComponentSerializer.plainText().serialize(component);
 	}
 
 	@Nonnull
@@ -176,7 +176,7 @@ public class MysteriaUtils {
 
 	public static Component centeredComponent(@Nonnull Component message) {
 
-		String plainText = PlainComponentSerializer.plain().serialize(message);
+		String plainText = PlainTextComponentSerializer.plainText().serialize(message);
 
 		int messagePxSize = 0;
 		boolean isBold = message.hasDecoration(TextDecoration.BOLD);
