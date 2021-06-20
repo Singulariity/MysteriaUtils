@@ -13,16 +13,22 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Server;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("unused")
 public class MysteriaUtils {
 
-	private static final @Nonnull Component CHAT_PREFIX = Component.text()
+	private static final @Nonnull
+	Component CHAT_PREFIX = Component.text()
 			.append(Component.text("[", NamedColor.WIZARD_GREY))
 			.append(Component.text("MU", NamedColor.PROTOSS_PYLON))
 			.append(Component.text("]", NamedColor.WIZARD_GREY))
@@ -88,7 +94,7 @@ public class MysteriaUtils {
 	}
 
 	public static void broadcastMessage(@Nonnull Component s) {
-		Bukkit.broadcast(CHAT_PREFIX.append(s), "");
+		Bukkit.broadcast(s, Server.BROADCAST_CHANNEL_USERS);
 		Bukkit.getConsoleSender().sendMessage(CHAT_PREFIX.append(s));
 	}
 
@@ -219,6 +225,28 @@ public class MysteriaUtils {
 	 */
 	public static int getRandom(int min, int max) {
 		return new Random().nextInt((max - min) + 1) + min;
+	}
+
+	public static void giveItem(@Nonnull Player player, ItemStack... itemStacks) {
+		giveItem(player, true, itemStacks);
+	}
+
+	public static void giveItem(@Nonnull Player player, boolean message, ItemStack... itemStacks) {
+		HashMap<Integer, ItemStack> left = player.getInventory().addItem(itemStacks);
+		if (!left.isEmpty()) {
+			for (ItemStack itemStack : left.values()) {
+				Item item = player.getWorld().dropItem(player.getLocation(), itemStack);
+				item.setVelocity(new Vector());
+				item.setOwner(player.getUniqueId());
+				item.setInvulnerable(true);
+				item.setCanMobPickup(false);
+				if (message) {
+					Component itemComponent = showItemComponent(itemStack);
+					sendMessage(player, Component.translatable("mystery.inventory.item_dropped",
+							NamedColor.CARMINE_PINK, itemComponent));
+				}
+			}
+		}
 	}
 
 	@Nonnull
